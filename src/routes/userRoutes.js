@@ -20,9 +20,11 @@ router.post('/usuarios/login', async(req,res) =>{
         if (logedUser == null) return res.send('Usuario o contraseña incorrectos');
 
         jwt.sign({user: logedUser}, process.env.SECRETKEY,(err, token)=>{
-            return res.json({
-                token: token
-            })
+            res.send(
+                res.json({
+                    token: token
+                })
+            )
         });
 
 
