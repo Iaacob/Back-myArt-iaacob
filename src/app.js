@@ -6,11 +6,13 @@ import commentRoutes from './routes/commentsRoutes'
 import likeOrDislikeRoutes from './routes/likeOrDislikeRoutes'
 import 'dotenv/config.js'
 import jwt from 'jsonwebtoken'
+import cors from 'cors'
  
 const app = express();
 
 app.set('port', config.port);
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -48,8 +50,8 @@ const verifyToken =(req,res,next)=>{
 }
 
 app.use(userRoutes);
-app.use(verifyToken, publicationRoutes);
-app.use(verifyToken, commentRoutes);
-app.use(verifyToken, likeOrDislikeRoutes);
+app.use( publicationRoutes);
+app.use( commentRoutes);
+app.use( likeOrDislikeRoutes);
 
 export default app
