@@ -3,7 +3,7 @@ import sql from 'mssql'
 const dbSetting = {
         user: "Valenn",
         password: "Contraseña",
-        server: "192.168.0.130",
+        server: "10.152.2.137",
         database: "MyArtBD",
         options: {
             encrypt: true, // for azure
@@ -11,8 +11,8 @@ const dbSetting = {
         }
     }
     //server: localhost
-    //user de casa: Valen
-    //contraseña de casa: contraseña
+    //user de casa: Valenn
+    //contraseña de casa: Contraseña
     //cambiar datos dependiendo de la compu ACORDATE DE PONER EL PORT EN 1433
     /*crear el usuario en la BD con los datos de arriba, entrar a server roles y darle a sysadmin para que este permitido. Por ultimo logearse desde 0 con ese usuario*/ 
 export async function getConnection() {

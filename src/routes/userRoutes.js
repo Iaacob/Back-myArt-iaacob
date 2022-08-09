@@ -15,9 +15,8 @@ router.post('/usuarios/login', async(req,res) =>{
     try {
         const {username, password} = req.body
         const logedUser = await login(username,password)
-        let tokenHeader = null;
 
-        if (logedUser == null) return res.send('Usuario o contraseña incorrectos');
+        if (logedUser == null) return res.send('Usuario o contraseña incorrectos, vuelva a intentar');
 
         jwt.sign({user: logedUser}, process.env.SECRETKEY,(err, token)=>{
             res.send(
