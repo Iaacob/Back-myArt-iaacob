@@ -7,6 +7,7 @@ import likeOrDislikeRoutes from './routes/likeOrDislikeRoutes'
 import 'dotenv/config.js'
 import jwt from 'jsonwebtoken'
 import cors from 'cors'
+import  prueba  from './routes/pruebaRoutes'
  
 const app = express();
 
@@ -49,6 +50,7 @@ const verifyToken =(req,res,next)=>{
   });
 }
 
+app.use(prueba)
 app.use(userRoutes);
 app.use( publicationRoutes);
 app.use( commentRoutes);

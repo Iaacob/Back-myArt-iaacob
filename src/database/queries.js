@@ -35,4 +35,13 @@ export const queries = {
                 WHERE fkUser = @fkUser AND fkPublication = @fkPublication`,
     deleteLikeOrDislike: `DELETE FROM LikeOrDislike WHERE fkUser = @fkUser AND fkPublication = @fkPublication`,
     login: `SELECT * FROM [User] WHERE username = @pUsername AND password = @pPassword`,
+    prueba: `SELECT Publication.Id, Publication.[name], Publication.[image], Publication.created_at, Publication.fkUser, Publication.[description], [User].username as Username, LikeOrDislike.stateDislike as Disike, LikeOrDislike.stateLike as [Like], Comment.[text] as Comment
+    from Publication
+    INNER JOIN [User] 
+    ON Publication.fkUser = [User].Id
+    INNER JOIN LikeOrDislike 
+    ON Publication.Id = LikeOrDislike.fkPublication
+    INNER JOIN Comment
+    ON Publication.Id = Comment.fkPublication
+    WHERE Publication.Id = @publicationId`
 }
