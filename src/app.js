@@ -52,8 +52,8 @@ const verifyToken =(req,res,next)=>{
 
 app.use(prueba)
 app.use(userRoutes);
-app.use( publicationRoutes);
-app.use( commentRoutes);
-app.use( likeOrDislikeRoutes);
+app.use(verifyToken, publicationRoutes);
+app.use(verifyToken, commentRoutes);
+app.use(verifyToken, likeOrDislikeRoutes);
 
 export default app
