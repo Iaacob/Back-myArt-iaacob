@@ -43,7 +43,6 @@ const verifyToken =(req,res,next)=>{
       res.status(403).json(err);
     }
     else{
-      console.log(tokenSolo);
       next();
     }
   });
