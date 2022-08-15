@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUsers, createUser, getUserById, deleteUser, updateUser, login } from "../controllers/userController";
+import { getUsers, createUser, getUserById, deleteUser, updateUser, login, getUserByUsername } from "../controllers/userController";
 import 'dotenv/config'
 import jwt  from "jsonwebtoken";
 import { token } from "morgan";
@@ -9,6 +9,8 @@ const router = Router();
 router.get('/usuarios', getUsers);
 
 router.get('/usuarios/:Id', getUserById);
+
+router.post('/usuarios/usuario', getUserByUsername);
 
 router.post('/usuarios/login', async(req,res) =>{
 

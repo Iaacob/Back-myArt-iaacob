@@ -29,6 +29,44 @@ export const getDislikes = async(req, res) => {
 
 }
 
+//obtener likes del usuario
+
+export const getLikesfromUser = async(req, res) => {
+
+    const {username, password} = req.body
+    
+    try {
+        const pool = await getConnection();
+        const result = await pool.request()
+                        .input('username',sql.VarChar(50), username)
+                        .input('password',sql.VarChar(50), password)
+                        .query(queries.getLikesFromUser);
+        res.json(result.recordset);
+    } catch (error) {
+        res.status(500);
+        res.send(error.msg('Easgfasdfl servidor'));
+    }
+}
+
+//obtener dislikes del usuario
+
+export const getDislikesfromUser = async(req, res) => {
+
+    const {username, password} = req.body
+    
+    try {
+        const pool = await getConnection();
+        const result = await pool.request()
+                        .input('username',sql.VarChar(50), username)
+                        .input('password',sql.VarChar(50), password)
+                        .query(queries.getDislikesFromUser);
+        res.json(result.recordset);
+    } catch (error) {
+        res.status(500);
+        res.send(error.msg('Easgfasdfl servidor'));
+    }
+}
+
 export const insertLike = async(req, res) => {
 
     const {

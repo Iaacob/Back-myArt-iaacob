@@ -6,7 +6,8 @@ import { createPublication,
     getPublicationById, 
     getPublications, 
     getPublicationsByUserId,
-    getDislikesFromPublication } from "../controllers/publicationController";
+    getDislikesFromPublication,
+    getPublicationsByUsername } from "../controllers/publicationController";
 
 const router = Router();
 
@@ -15,6 +16,8 @@ router.get('/publicaciones', getPublications);
 router.get('/publicaciones/:Id', getPublicationById);
 
 router.get('/publicaciones/getPublicationsByUserId/:fkUser', getPublicationsByUserId);
+
+router.post('/publicaciones/username', getPublicationsByUsername);
 
 router.get('/publicaciones/Likes/:fkPublication', getLikesFromPublication);
 

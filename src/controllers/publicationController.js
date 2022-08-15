@@ -95,6 +95,26 @@ export const getPublicationsByUserId = async(req, res) => {
     }
 }
 
+//Obtener una publicacion por username
+
+export const getPublicationsByUsername = async(req, res) => {
+
+    const { username, password } = req.body;
+
+    try {
+        const pool = await getConnection();
+        const result = await pool
+            .request()
+            .input("username", sql.VarChar(50), username)
+            .input("password", sql.VarChar(50), password)
+            .query(queries.getPublicationsByUsername);
+        res.send(result.recordsets[0]);
+    } catch (error) {
+        res.status(500);
+        console.log(error)
+    }
+}
+
 //Crear una publicacion
 
 export const createPublication = async(req, res) => {

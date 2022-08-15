@@ -109,6 +109,27 @@ export const getUserById = async(req, res) => {
 
 }
 
+//Obtener un usuario por su username
+
+export const getUserByUsername = async(req, res) => {
+
+    const { username } = req.body;
+
+    try {
+        const pool = await getConnection();
+        const result = await pool
+            .request()
+            .input("username", sql.VarChar(50),username)
+            .query(queries.getUserByUsername);
+        res.send(result.recordset[0]);
+
+    } catch (error) {
+        res.status(500);
+        console.log(error)
+    }
+
+}
+
 //Borrar un usuario
 
 export const deleteUser = async(req, res) => {

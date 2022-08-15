@@ -40,7 +40,6 @@ const verifyToken =(req,res,next)=>{
 
   jwt.verify(tokenSolo, process.env.SECRETKEY, (err) => {
     if(err){
-      console.log('paso 4: ',tokenSolo);
       res.status(403).json(err);
     }
     else{

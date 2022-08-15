@@ -1,11 +1,23 @@
 import { Router } from "express";
-import { getLikes, getDislikes, insertLike, insertDisLike, updateToLike, updateToDislike,deleteLike } from "../controllers/likeOrDislikeController";
+import { getLikes, 
+         getDislikes, 
+         insertLike, 
+         insertDisLike, 
+         updateToLike, 
+         updateToDislike,
+         deleteLike, 
+         getLikesfromUser,
+         getDislikesfromUser } from "../controllers/likeOrDislikeController";
 
 const router = Router();
 
 router.get('/likesOrDislikes/likes', getLikes);
 
 router.get('/likesOrDislikes/dislikes', getDislikes);
+
+router.post('/likesOrDislikes/likes/user', getLikesfromUser);
+
+router.post('/likesOrDislikes/dislikes/user', getDislikesfromUser)
 
 router.post('/likesOrDislikes/likes', insertLike);
 

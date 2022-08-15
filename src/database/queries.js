@@ -5,6 +5,7 @@ export const queries = {
                 VALUES (@name, @lastName, @username, @password, @cellphone, @mail, @description, @profilePicture,
                     @created_at, @premium, @occupation)`,
     getUserById: "SELECT * FROM [User] WHERE Id = @Id",
+    getUserByUsername: 'SELECT * FROM [User] WHERE username = @username',
     deleteUser: "DELETE FROM [User] WHERE Id = @Id",
     updateUser: `UPDATE [User] SET name = @name, lastName = @lastName, username = @username, password = @password, cellphone = @cellphone, mail = @mail,
                 description = @description, profilepicture = @profilepicture, premium = @premium, occupation = @occupation
@@ -12,7 +13,21 @@ export const queries = {
     getPublications: `SELECT * FROM Publication`,
     getPublicationById: `SELECT * FROM Publication WHERE Id = @Id`,
     getPublicationsByUserId: `SELECT * FROM Publication WHERE fkUser = @fkUser`,
+    getPublicationsByUsername: `SELECT Publication.Id, Publication.[name], Publication.[image], Publication.[created_at],Publication.[description],[User].username,[User].password
+                                FROM Publication 
+                                INNER JOIN [User] ON Publication.fkUser = [User].Id 
+                                WHERE [User].username = @username`,
     getLikesFromPublication: `SELECT COUNT (*) as Likes FROM LikeOrDislike WHERE fkPublication = @fkPublication AND stateLike = 'True' AND stateDislike = 'False'`,
+    getLikesFromUser: `SELECT Publication.Id, Publication.[name],Publication.[image],Publication.[created_at] ,Publication.[fkUser] ,Publication.[description]   
+                        FROM LikeOrDislike
+                        INNER JOIN Publication ON LikeOrDislike.fkPublication = Publication.Id
+                        INNER JOIN [User] ON LikeOrDislike.fkUser = [User].Id
+                        WHERE [User].username = @username AND [User].password = @password AND LikeOrDislike.stateLike = 1 AND LikeOrDislike.stateDislike = 0`,
+    getDislikesFromUser: `SELECT Publication.Id, Publication.[name],Publication.[image],Publication.[created_at] ,Publication.[fkUser] ,Publication.[description]   
+                        FROM LikeOrDislike
+                        INNER JOIN Publication ON LikeOrDislike.fkPublication = Publication.Id
+                        INNER JOIN [User] ON LikeOrDislike.fkUser = [User].Id
+                        WHERE [User].username = @username AND [User].password = @password AND LikeOrDislike.stateLike = 0 AND LikeOrDislike.stateDislike = 1`,
     getDislikesFromPublication: `SELECT COUNT (*) as Dislikes FROM LikeOrDislike WHERE fkPublication = @fkPublication AND stateDislike = 'true' AND stateLike = 'False'`,
     createPublication: `INSERT INTO Publication (name, image, created_at, fkUser, description)
     VALUES (@name, @image, @created_at, @fkUser, @description)`,
