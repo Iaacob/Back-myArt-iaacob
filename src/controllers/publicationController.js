@@ -2,10 +2,6 @@
 
 //traer todas las publicaciones
 
-//METER LA FECHA EN LA QUE SE CREA LA PUBLICACION
-//HACER UN CAMPO DATE QUE EL USER NO LO TOQUE
-//PONER POR DEFECTO LA FECHA EN LA QUE SE CREA LA IMAGEN
-
 export const getPublications = async(req, res) => {
 
     try {
@@ -114,6 +110,19 @@ export const getPublicationsByUsername = async(req, res) => {
         console.log(error)
     }
 }
+
+//obtener todos los datos de una publicacion
+
+export const getAllDataFromPublications = async(req, res) => {
+    try {
+        const pool = await getConnection();
+        const result = await pool.request().query(queries.getAllDataFromPublications);
+        res.json(result.recordset);
+    } catch (error) {
+        res.status(500);
+        res.send(error.msg('Error en el servidor'));
+    }
+};
 
 //Crear una publicacion
 

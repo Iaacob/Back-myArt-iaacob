@@ -7,11 +7,12 @@ import { createPublication,
     getPublications, 
     getPublicationsByUserId,
     getDislikesFromPublication,
-    getPublicationsByUsername } from "../controllers/publicationController";
+    getPublicationsByUsername,
+    getAllDataFromPublications} from "../controllers/publicationController";
 
 const router = Router();
 
-router.get('/publicaciones', getPublications);
+router.get('/publicaciones/get', getPublications);
 
 router.get('/publicaciones/:Id', getPublicationById);
 
@@ -22,6 +23,8 @@ router.post('/publicaciones/username', getPublicationsByUsername);
 router.get('/publicaciones/Likes/:fkPublication', getLikesFromPublication);
 
 router.get('/publicaciones/Disikes/:fkPublication', getDislikesFromPublication);
+
+router.get('/publicaciones', getAllDataFromPublications);
 
 router.post('/publicaciones', createPublication);
 

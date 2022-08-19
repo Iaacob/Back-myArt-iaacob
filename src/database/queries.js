@@ -29,6 +29,32 @@ export const queries = {
                         INNER JOIN [User] ON LikeOrDislike.fkUser = [User].Id
                         WHERE [User].username = @username AND [User].password = @password AND LikeOrDislike.stateLike = 0 AND LikeOrDislike.stateDislike = 1`,
     getDislikesFromPublication: `SELECT COUNT (*) as Dislikes FROM LikeOrDislike WHERE fkPublication = @fkPublication AND stateDislike = 'true' AND stateLike = 'False'`,
+    getAllDataFromPublications: `SELECT Publication.Id,
+    Publication.name,
+    Publication.image,
+    Publication.created_at,
+    publication.description,
+    [User].username as Username,
+    [User].profilePicture as profilePicture,
+    [User].occupation as occupation,
+    (select count(stateLike) from likeOrDislike where likeOrDislike.fkPublication = Publication.Id and stateLike = 1) as [likes],
+    (select count(stateDislike) from likeOrDislike where likeOrDislike.fkPublication = Publication.Id and stateDislike = 1) as [dislikes],
+    (select count([text]) from Comment where Comment.fkPublication = Publication.Id) as comments
+    FROM Publication
+    INNER JOIN [User]
+    ON Publication.fkUser = [User].Id
+    INNER JOIN LikeOrDislike ON Publication.Id = LikeOrDislike.fkPublication
+    INNER JOIN Comment
+    ON Publication.Id = Comment.fkPublication
+    GROUP BY Publication.Id,
+    Publication.name,
+    Publication.image,
+    Publication.created_at,
+    publication.description,
+    [User].username,
+    LikeOrDislike.fkPublication,
+    [User].profilePicture,
+    [User].occupation`,
     createPublication: `INSERT INTO Publication (name, image, created_at, fkUser, description)
     VALUES (@name, @image, @created_at, @fkUser, @description)`,
     updatePublication: `UPDATE Publication SET image = @image, name = @name, fkUser = @fkUser, created_at = @created_at`,
