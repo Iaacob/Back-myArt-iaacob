@@ -40,13 +40,12 @@ export const queries = {
     (select count(stateLike) from likeOrDislike where likeOrDislike.fkPublication = Publication.Id and stateLike = 1) as [likes],
     (select count(stateDislike) from likeOrDislike where likeOrDislike.fkPublication = Publication.Id and stateDislike = 1) as [dislikes],
     (select count([text]) from Comment where Comment.fkPublication = Publication.Id) as comments
-    FROM Publication
-    INNER JOIN [User]
-    ON Publication.fkUser = [User].Id
-    INNER JOIN LikeOrDislike ON Publication.Id = LikeOrDislike.fkPublication
-    INNER JOIN Comment
-    ON Publication.Id = Comment.fkPublication
-    GROUP BY Publication.Id,
+FROM Publication
+LEFT JOIN [User] ON Publication.fkUser = [User].Id
+LEFT JOIN LikeOrDislike ON Publication.Id = LikeOrDislike.fkPublication
+LEFT JOIN Comment ON Publication.Id = Comment.fkPublication
+GROUP BY 
+	Publication.Id,
     Publication.name,
     Publication.image,
     Publication.created_at,
@@ -54,7 +53,8 @@ export const queries = {
     [User].username,
     LikeOrDislike.fkPublication,
     [User].profilePicture,
-    [User].occupation`,
+    [User].occupation
+`,
     createPublication: `INSERT INTO Publication (name, image, created_at, fkUser, description)
     VALUES (@name, @image, @created_at, @fkUser, @description)`,
     updatePublication: `UPDATE Publication SET image = @image, name = @name, fkUser = @fkUser, created_at = @created_at`,

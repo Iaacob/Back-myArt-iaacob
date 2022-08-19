@@ -38,7 +38,7 @@ router.post('/usuarios/login', async(req,res) =>{
 
 router.post('/usuarios/register', createUser);
 
-router.delete('/usuarios/:Id', deleteUser);
+// router.delete('/usuarios/:Id', deleteUser);
 
 router.put('/usuarios/:Id', updateUser);
 

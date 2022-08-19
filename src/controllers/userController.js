@@ -66,6 +66,8 @@ export const createUser = async(req, res) => {
         return res.status(400).json({ msg: 'faltan datos' });
     }
 
+    console.log('estoy aca');
+
     try {
         const pool = await getConnection();
         await pool.request()
@@ -84,7 +86,7 @@ export const createUser = async(req, res) => {
         res.json({ name, lastName, username, password, cellphone, mail, description, profilePicture, created_at, premium, occupation});
     } catch (error) {
         res.status(500);
-        res.send(error.msg('Error en el servidor'));
+        res.send(error.msg('Erridor'));
     }
 }
 
@@ -117,6 +119,7 @@ export const getUserByUsername = async(req, res) => {
 
     try {
         const pool = await getConnection();
+        console.log('lo que me llego',username)
         const result = await pool
             .request()
             .input("username", sql.VarChar(50),username)
@@ -139,6 +142,7 @@ export const deleteUser = async(req, res) => {
     try {
 
         const pool = await getConnection();
+        console.log("Estoy en deleteUser");
         const result = await pool
             .request()
             .input("Id", Id)

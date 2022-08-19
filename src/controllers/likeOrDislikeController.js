@@ -84,7 +84,7 @@ export const insertLike = async(req, res) => {
             .query(queries.insertLikeOrDislike);
         return res.send(`El usuario ${fkUser} le dio like a la publicación ${fkPublication}`);
     } catch (error) {
-        return res.send(error.msg('Error en el servidor')).status(500);
+        return res.send(error.msg(error)).status(500);
     }
 }
 
