@@ -7,7 +7,7 @@ import likeOrDislikeRoutes from './routes/likeOrDislikeRoutes'
 import 'dotenv/config.js'
 import jwt from 'jsonwebtoken'
 import cors from 'cors'
-import  prueba  from './routes/pruebaRoutes'
+import prueba  from './routes/pruebaRoutes'
  
 const app = express();
 
