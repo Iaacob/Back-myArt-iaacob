@@ -122,9 +122,10 @@ export const getAllDataFromPublications = async (req, res) => {
 
 export const searchPublications = async (req, res) => {
   let { name } = req.params
+  console.log('estoy aca search 1')
   try {
-    if (name === null) {
-      return res.json({ error: 'escribe el nombre de la publicacion' })
+    if (name === '') {
+      return res.send('escribi')
     }
     else {
       const pool = await getConnection();
@@ -132,6 +133,9 @@ export const searchPublications = async (req, res) => {
         .request()
         .input('name', sql.VarChar(50), name)
         .query(queries.searchPublications);
+      if(result.recordset === 0){
+        return res.send('no existe esa publicacion')
+      }
       res.json(result.recordset);
     }
   } catch (error) {
