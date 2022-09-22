@@ -121,14 +121,19 @@ export const getAllDataFromPublications = async (req, res) => {
 //search Publications
 
 export const searchPublications = async (req, res) => {
-  const { name } = req.params
+  let { name } = req.params
   try {
-    const pool = await getConnection();
-    const result = await pool
-      .request()
-      .input('name', sql.VarChar(50), name)
-      .query(queries.searchPublications);
-    res.json(result.recordset);
+    if (name === null) {
+      return res.json({ error: 'escribe el nombre de la publicacion' })
+    }
+    else {
+      const pool = await getConnection();
+      const result = await pool
+        .request()
+        .input('name', sql.VarChar(50), name)
+        .query(queries.searchPublications);
+      res.json(result.recordset);
+    }
   } catch (error) {
     res.status(500);
     res.send(error.msg("Error en el servidor"));
