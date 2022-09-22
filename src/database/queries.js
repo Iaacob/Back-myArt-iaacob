@@ -55,6 +55,12 @@ GROUP BY
     [User].profilePicture,
     [User].occupation
 `,
+  searchPublications: 
+  `
+  SELECT Publication.Id,Publication.name,Publication.image
+FROM Publication
+WHERE Publication.name LIKE '%' + @name + '%'
+  `,
   createPublication: `INSERT INTO Publication (name, image, created_at, fkUser, description)
     VALUES (@name, @image, @created_at, @fkUser, @description)`,
   updatePublication: `UPDATE Publication SET image = @image, name = @name, fkUser = @fkUser, created_at = @created_at`,
