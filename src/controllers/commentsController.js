@@ -66,7 +66,7 @@ export const createComment = async (req, res) => {
     "-" +
     ("00" + fecha.getUTCDate()).slice(-2) +
     " " +
-    ("00" + (fecha.getUTCHours() - 6)).slice(-2) +
+    ("00" + fecha.getHours()).slice(-2) +
     ":" +
     ("00" + fecha.getUTCMinutes()).slice(-2) +
     ":" +
