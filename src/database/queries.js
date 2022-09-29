@@ -64,8 +64,7 @@ WHERE Publication.name LIKE '%' + @name + '%'
   createPublication: `INSERT INTO Publication (name, image, created_at, fkUser, description)
     VALUES (@name, @image, @created_at, @fkUser, @description)`,
   updatePublication: `UPDATE Publication SET image = @image, name = @name, fkUser = @fkUser, created_at = @created_at`,
-  deletePublication: `DELETE FROM Publication WHERE Id = @Id`,
-  deletePublicationsFromUser: `DELETE FROM Publication WHERE fkUser = @fkUser`,
+  
   getComments: `SELECT * FROM Comment`,
   getCommentsByUserId: `SELECT * FROM Comment WHERE fkUser = @fkUser`,
   getCommentsByPublicationId: `
@@ -103,4 +102,6 @@ WHERE Publication.name LIKE '%' + @name + '%'
     INNER JOIN Comment
     ON Publication.Id = Comment.fkPublication
     WHERE Publication.Id = @publicationId`,
+    deletePublication: `DELETE FROM Publication WHERE Id = @Id`,
+    deletePublicationsFromUser: `DELETE FROM Publication WHERE fkUser = @fkUser`
 };

@@ -245,26 +245,7 @@ export const createPublication = async (req, res) => {
 
 // }
 
-//Borrar una publicacion
-
-export const deletePublication = async (req, res) => {
-  const { Id } = req.params;
-
-  try {
-    const pool = await getConnection();
-    const result = await pool
-      .request()
-      .input("Id", Id)
-      .query(queries.deletePublication);
-    res.send("Publicacion eliminada correctamente");
-  } catch (error) {
-    res.status(500);
-    res.send(error.msg("Error en el servidor"));
-  }
-};
-
 //Borrar todas las publicaciones de un usuario
-
 export const deletePublicationsFromUser = async (req, res) => {
   const { fkUser } = req.params;
 
@@ -277,6 +258,24 @@ export const deletePublicationsFromUser = async (req, res) => {
     res.send(
       `Todas las publicaciones del Usuario ${fkUser} se borraron correctamente`
     );
+  } catch (error) {
+    res.status(500);
+    res.send(error.msg("Error en el servidor"));
+  }
+};
+
+
+//Borrar una publicacion por id
+export const deletePublication = async (req, res) => {
+  const { Id } = req.params;
+  console.log("tuki debug: ", Id)
+  try {
+    const pool = await getConnection();
+    await pool
+      .request()
+      .input("Id", Id)
+      .query(queries.deletePublication);
+    res.send("Publicacion eliminada correctamente");
   } catch (error) {
     res.status(500);
     res.send(error.msg("Error en el servidor"));
