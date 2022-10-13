@@ -114,7 +114,7 @@ export const getAllDataFromPublications = async (req, res) => {
     res.json(result.recordset);
   } catch (error) {
     res.status(500);
-    res.send(error.msg("Error en el servidor"));
+    res.send(error.msg("Error en el servidorsdfhgsfdgj"));
   }
 };
 

@@ -37,6 +37,7 @@ export const queries = {
     [User].username as Username,
     [User].profilePicture as profilePicture,
     [User].occupation as occupation,
+    [User].Id as UserId,
     (select count(stateLike) from likeOrDislike where likeOrDislike.fkPublication = Publication.Id and stateLike = 1) as [likes],
     (select count(stateDislike) from likeOrDislike where likeOrDislike.fkPublication = Publication.Id and stateDislike = 1) as [dislikes],
     (select count([text]) from Comment where Comment.fkPublication = Publication.Id) as comments
@@ -53,7 +54,8 @@ GROUP BY
     [User].username,
     LikeOrDislike.fkPublication,
     [User].profilePicture,
-    [User].occupation
+    [User].occupation,
+    [User].Id
 `,
   searchPublications: 
   `
