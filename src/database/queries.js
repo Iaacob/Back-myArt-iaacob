@@ -12,7 +12,6 @@ export const queries = {
                   WHERE Id = @Id`,
   getPublications: `SELECT * FROM Publication`,
   getPublicationById: `SELECT * FROM Publication WHERE Id = @Id`,
-  getPublicationsByUserId: `SELECT * FROM Publication WHERE fkUser = @fkUser`,
   getPublicationsByUsername: `SELECT Publication.Id, Publication.[name], Publication.[image], Publication.[created_at],Publication.[description],[User].username,[User].password
                                 FROM Publication 
                                 INNER JOIN [User] ON Publication.fkUser = [User].Id 
@@ -105,5 +104,7 @@ WHERE Publication.name LIKE '%' + @name + '%'
     ON Publication.Id = Comment.fkPublication
     WHERE Publication.Id = @publicationId`,
     deletePublication: `DELETE FROM Publication WHERE Id = @Id`,
-    deletePublicationsFromUser: `DELETE FROM Publication WHERE fkUser = @fkUser`
+    deletePublicationsFromUser: `DELETE FROM Publication WHERE fkUser = @fkUser`,
+
+    getPublicationsByUserId: `SELECT * FROM Publication WHERE fkUser = @fkUser`
 };

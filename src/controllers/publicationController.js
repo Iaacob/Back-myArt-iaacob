@@ -66,24 +66,6 @@ export const getPublicationById = async (req, res) => {
   }
 };
 
-//Traer las publicaciones de un usuario
-
-export const getPublicationsByUserId = async (req, res) => {
-  const { fkUser } = req.params;
-
-  try {
-    const pool = await getConnection();
-    const result = await pool
-      .request()
-      .input("fkUser", sql.Int, fkUser)
-      .query(queries.getPublicationsByUserId);
-    res.send(result.recordsets[0]);
-  } catch (error) {
-    res.status(500);
-    console.log(error);
-  }
-};
-
 //Obtener una publicacion por username
 
 export const getPublicationsByUsername = async (req, res) => {
@@ -280,4 +262,23 @@ export const deletePublication = async (req, res) => {
     res.status(500);
     res.send(error.msg("Error en el servidor"));
   }
+};
+
+
+//traer las publicaciones de un usuario cuando coincide fkuser
+export const getPublicationsByUserId = async (req, res) => {
+  const { fkUser } = req.params;
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .input("fkUser", sql.Int, fkUser)
+      .query(queries.getPublicationsByUserId);
+    res.send(result.recordsets[0]);
+  } catch (error) {
+    res.status(500);
+    console.log(error);
+  }
+
+  
 };
