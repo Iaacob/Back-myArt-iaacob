@@ -12,10 +12,18 @@ export const queries = {
                   WHERE Id = @Id`,
   getPublications: `SELECT * FROM Publication`,
   getPublicationById: `SELECT * FROM Publication WHERE Id = @Id`,
-  getPublicationsByUsername: `SELECT Publication.Id, Publication.[name], Publication.[image], Publication.[created_at],Publication.[description],[User].username,[User].password
-                                FROM Publication 
-                                INNER JOIN [User] ON Publication.fkUser = [User].Id 
-                                WHERE [User].username = @username`,
+  getPublicationsByUsername: `SELECT Publication.Id, 
+	Publication.[name], 
+	Publication.[image], 
+	Publication.[created_at],
+	Publication.[description],
+	[User].username,
+	[User].password,
+	(select count(stateLike) from likeOrDislike where likeOrDislike.fkPublication = Publication.Id and stateLike = 1) as [likes]
+	FROM Publication 
+		INNER JOIN [User] ON Publication.fkUser = [User].Id 
+		INNER JOIN [LikeOrDislike] ON Publication.fkUser = [LikeOrDislike].fkUser
+		WHERE [User].username = @username`,
   getLikesFromPublication: `SELECT COUNT (*) as Likes FROM LikeOrDislike WHERE fkPublication = @fkPublication AND stateLike = 'True' AND stateDislike = 'False'`,
   getLikesFromUser: `SELECT Publication.Id, Publication.[name],Publication.[image],Publication.[created_at] ,Publication.[fkUser] ,Publication.[description]   
                         FROM LikeOrDislike
