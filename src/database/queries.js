@@ -41,6 +41,7 @@ export const queries = {
     Publication.image,
     Publication.created_at,
     publication.description,
+    publication.precio,
     [User].username as Username,
     [User].profilePicture as profilePicture,
     [User].occupation as occupation,
@@ -58,6 +59,7 @@ GROUP BY
     Publication.image,
     Publication.created_at,
     publication.description,
+    publication.precio,
     [User].username,
     LikeOrDislike.fkPublication,
     [User].profilePicture,
@@ -70,8 +72,8 @@ GROUP BY
 FROM Publication
 WHERE Publication.name LIKE '%' + @name + '%'
   `,
-  createPublication: `INSERT INTO Publication (name, image, created_at, fkUser, description)
-    VALUES (@name, @image, @created_at, @fkUser, @description)`,
+  createPublication: `INSERT INTO Publication (name, image, created_at, fkUser, description, precio)
+    VALUES (@name, @image, @created_at, @fkUser, @description, @precio)`,
   updatePublication: `UPDATE Publication SET image = @image, name = @name, fkUser = @fkUser, created_at = @created_at`,
   
   getComments: `SELECT * FROM Comment`,

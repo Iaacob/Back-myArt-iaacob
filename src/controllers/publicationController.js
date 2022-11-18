@@ -137,6 +137,10 @@ export const createPublication = async (req, res) => {
 
   let created_at = null;
 
+  console.log(req.body.precio);
+  let precio = req.body.precio;
+  console.log(precio);
+
   let fecha = new Date();
   fecha =
     fecha.getUTCFullYear() +
@@ -170,6 +174,7 @@ export const createPublication = async (req, res) => {
       .input("created_at", sql.DateTime, created_at)
       .input("fkUser", sql.Int, fkUser)
       .input("description", sql.VarChar(255), description)
+      .input("precio", sql.VarChar(255), precio)
       .query(queries.createPublication);
     res.json({ name, image, fkUser, created_at, description }).status(200);
   } catch (error) {
