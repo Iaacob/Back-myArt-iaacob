@@ -136,10 +136,19 @@ export const createPublication = async (req, res) => {
   let { description } = req.body;
 
   let created_at = null;
-
-  console.log(req.body.precio);
   let precio = req.body.precio;
-  console.log(precio);
+
+  console.log(req.body.premium);
+
+  let premium = req.body.premium;
+  // let premiumdb
+  // if (premium === "si") {
+  //   premiumdb = 1
+  // } else {
+  //   premiumdb = 0
+  // }
+  console.log("premium", premium);
+
 
   let fecha = new Date();
   fecha =
@@ -175,8 +184,10 @@ export const createPublication = async (req, res) => {
       .input("fkUser", sql.Int, fkUser)
       .input("description", sql.VarChar(255), description)
       .input("precio", sql.VarChar(255), precio)
+      .input("premium", sql.Int, premium)
+
       .query(queries.createPublication);
-    res.json({ name, image, fkUser, created_at, description }).status(200);
+    res.json({ name, image, fkUser, created_at, description, precio, premium }).status(200);
   } catch (error) {
     res.status(500);
     res.send(error.msg("Error en el servidor"));

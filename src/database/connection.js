@@ -3,7 +3,7 @@ import sql from 'mssql'
 const dbSetting = {
         user: "Valen",
         password: "Contraseña",
-        server: "10.152.2.114",
+        server: "10.152.2.131",
         database: "MyArtBD",
         options: {
             encrypt: true, // for azure
